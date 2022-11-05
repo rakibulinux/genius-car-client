@@ -1,9 +1,9 @@
 import React, { useContext, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import loginImg from "../../assets/images/login/login.svg";
-import { FaFacebook, FaGithub, FaGoogle } from "react-icons/fa";
 import { AuthContext } from "../../contexts/AuthProvider";
 import toast from "react-hot-toast";
+import SocialLogin from "../Shared/SocialLogin/SocialLogin";
 
 const Login = () => {
   const [userInfo, setUserInfo] = useState({
@@ -13,13 +13,7 @@ const Login = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const from = location.state?.from?.pathname || "/";
-  const {
-    loginUserAccount,
-    resetUserPassword,
-    googleLogin,
-    githubLogin,
-    facebookLogin,
-  } = useContext(AuthContext);
+  const { loginUserAccount, resetUserPassword } = useContext(AuthContext);
   const { email, password } = userInfo;
 
   const handleLogin = (e) => {
@@ -111,38 +105,7 @@ const Login = () => {
             </div>
           </form>
 
-          <div className="text-center">
-            <p className="font-semibold">Or Sign Up with</p>
-            <div className="flex gap-5 justify-center my-5">
-              <button
-                className="btn bg-[#F5F5F8] text-gray-150 rounded-full border-none hover:bg-orange-750 hover:text-white"
-                type="submit"
-              >
-                <FaFacebook />
-              </button>
-              <button
-                className="btn bg-[#F5F5F8] text-gray-150 rounded-full border-none hover:bg-orange-750 hover:text-white"
-                type="submit"
-              >
-                <FaGithub />
-              </button>
-              <button
-                className="btn bg-[#F5F5F8] text-gray-150 rounded-full border-none hover:bg-orange-750 hover:text-white"
-                type="submit"
-              >
-                <FaGoogle />
-              </button>
-            </div>
-            <p className="mb-5 text-gray-250">
-              New to Ginius Car?
-              <Link
-                className="text-orange-750 font-semibold ml-2"
-                to="/register"
-              >
-                Sign Up
-              </Link>
-            </p>
-          </div>
+          <SocialLogin />
         </div>
       </div>
     </div>

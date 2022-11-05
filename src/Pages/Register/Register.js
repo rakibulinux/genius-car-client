@@ -1,19 +1,12 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
 import loginImg from "../../assets/images/login/login.svg";
-import { FaFacebook, FaGithub, FaGoogle } from "react-icons/fa";
 import { AuthContext } from "../../contexts/AuthProvider";
 import toast from "react-hot-toast";
+import SocialLogin from "../Shared/SocialLogin/SocialLogin";
 
 const Register = () => {
-  const {
-    createUserAccount,
-    updateUserProfile,
-    verifyUserAccount,
-    googleLogin,
-    githubLogin,
-    facebookLogin,
-  } = useContext(AuthContext);
+  const { createUserAccount, updateUserProfile, verifyUserAccount } =
+    useContext(AuthContext);
   const [userInfo, setUserInfo] = useState({
     name: "",
     photoURL: "",
@@ -27,7 +20,7 @@ const Register = () => {
     const form = e.target;
     createUserAccount(email, password)
       .then((result) => {
-        const user = result.user;
+        // const user = result.user;
         toast.success("User created successfully");
         verifyUserAccount()
           .then(() => {
@@ -130,35 +123,7 @@ const Register = () => {
               />
             </div>
           </form>
-          <div className="text-center">
-            <p className="font-semibold">Or Sign In with</p>
-            <div className="flex gap-5 justify-center my-5">
-              <button
-                className="btn bg-[#F5F5F8] text-gray-150 rounded-full border-none hover:bg-orange-750 hover:text-white"
-                type="submit"
-              >
-                <FaFacebook />
-              </button>
-              <button
-                className="btn bg-[#F5F5F8] text-gray-150 rounded-full border-none hover:bg-orange-750 hover:text-white"
-                type="submit"
-              >
-                <FaGithub />
-              </button>
-              <button
-                className="btn bg-[#F5F5F8] text-gray-150 rounded-full border-none hover:bg-orange-750 hover:text-white"
-                type="submit"
-              >
-                <FaGoogle />
-              </button>
-            </div>
-            <p className="mb-5 text-gray-250">
-              Already have an account?
-              <Link className="text-orange-750 font-semibold ml-2" to="/login">
-                Sign In
-              </Link>
-            </p>
-          </div>
+          <SocialLogin />
         </div>
       </div>
     </div>
