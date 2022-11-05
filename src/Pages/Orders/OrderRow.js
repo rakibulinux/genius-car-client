@@ -5,10 +5,9 @@ const OrderRow = ({ order, handleDelete, handleStatusUpdate }) => {
   const [orderService, setOrderService] = useState({});
 
   useEffect(() => {
-    fetch(`http://localhost:5000/services/${service}`)
+    fetch(`https://genius-car-server-one-self.vercel.app/services/${service}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setOrderService(data);
       });
   }, [service]);
@@ -38,15 +37,15 @@ const OrderRow = ({ order, handleDelete, handleStatusUpdate }) => {
             </div>
           </div>
           <div>
-            <div className="font-bold">{customer}</div>
-            <div className="text-sm opacity-50">{phone}</div>
+            <div className="font-bold">{serviceName}</div>
+            <div className="text-sm opacity-50">${price}</div>
           </div>
         </div>
       </td>
       <td>
-        {serviceName}
+        {customer}
         <br />
-        <span className="badge badge-ghost badge-sm">${price}</span>
+        <span className="badge badge-ghost badge-sm">{phone}</span>
       </td>
       <td>Purple</td>
       <th>

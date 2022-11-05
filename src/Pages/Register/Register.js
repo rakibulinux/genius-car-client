@@ -44,7 +44,6 @@ const Register = () => {
             toast.error(err.message);
           });
         form.reset();
-        console.log(user);
       })
       .catch((err) => {
         toast.error(err.message);

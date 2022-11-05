@@ -27,14 +27,26 @@ const Login = () => {
     loginUserAccount(email, password)
       .then((result) => {
         const user = result.user;
-        navigate(from, { replace: true });
+        const currentUser = {
+          email: user.email,
+        };
+        fetch("https://genius-car-server-one-self.vercel.app/jwt", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(currentUser),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            localStorage.setItem("genius-token", data.token);
+            navigate(from, { replace: true });
+          });
         toast.success(user.displayName, "Login Success");
-        console.log(user);
       })
       .catch((err) => {
         toast.error(err.message);
       });
-    console.log(userInfo);
   };
 
   const handleReset = () => {
