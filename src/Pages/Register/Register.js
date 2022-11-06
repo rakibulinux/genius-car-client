@@ -3,6 +3,7 @@ import loginImg from "../../assets/images/login/login.svg";
 import { AuthContext } from "../../contexts/AuthProvider";
 import toast from "react-hot-toast";
 import SocialLogin from "../Shared/SocialLogin/SocialLogin";
+import { Link } from "react-router-dom";
 
 const Register = () => {
   const { createUserAccount, updateUserProfile, verifyUserAccount } =
@@ -123,7 +124,16 @@ const Register = () => {
               />
             </div>
           </form>
-          <SocialLogin />
+          <div className="text-center">
+            <p className="font-semibold">Or Sign Up with</p>
+            <SocialLogin />
+            <p className="mb-5 text-gray-250">
+              Already have an account?
+              <Link className="text-orange-750 font-semibold ml-2" to="/login">
+                Sign In
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
     </div>

@@ -1,9 +1,10 @@
 import React, { useContext, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import loginImg from "../../assets/images/login/login.svg";
 import { AuthContext } from "../../contexts/AuthProvider";
 import toast from "react-hot-toast";
 import SocialLogin from "../Shared/SocialLogin/SocialLogin";
+import JWTAuthToken from "../../APIS/JWTAuthToken/JWTAuthToken";
 
 const Login = () => {
   const [userInfo, setUserInfo] = useState({
@@ -21,21 +22,7 @@ const Login = () => {
     loginUserAccount(email, password)
       .then((result) => {
         const user = result.user;
-        const currentUser = {
-          email: user.email,
-        };
-        fetch("https://genius-car-server-one-self.vercel.app/jwt", {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(currentUser),
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            localStorage.setItem("genius-token", data.token);
-            navigate(from, { replace: true });
-          });
+        JWTAuthToken(user, navigate, from);
         toast.success(user.displayName, "Login Success");
       })
       .catch((err) => {
@@ -105,7 +92,19 @@ const Login = () => {
             </div>
           </form>
 
-          <SocialLogin />
+          <div className="text-center">
+            <p className="font-semibold">Or Sign In with</p>
+            <SocialLogin />
+            <p className="mb-5 text-gray-250">
+              New to Genius Car?
+              <Link
+                className="text-orange-750 font-semibold ml-2"
+                to="/register"
+              >
+                Sign Up
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
     </div>
